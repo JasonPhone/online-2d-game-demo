@@ -1,9 +1,18 @@
 /**
  * schema
  */
-import {Schema, type} from "@colyseus/schema";
+import {Schema, type, ArraySchema} from "@colyseus/schema";
+import { GameState } from "~/customtypes/types";
+export class GameRoomState extends Schema implements GameState {
+    @type("number") activePlayer: number = 0;
+    @type(["number"]) board: ArraySchema<number>;
+    constructor() {
+        super();
+        this.board= new ArraySchema(
+            0, 0, 0,
+            0, 0, 0,
+            0, 0, 0
+        );
 
-export class GameRoomState extends Schema {
-    @type("string") currentTurn: string = "0";
-    @type("string") currentBoard: string = "000000000";
+    }
 }
