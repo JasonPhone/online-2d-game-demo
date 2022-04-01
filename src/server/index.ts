@@ -19,6 +19,7 @@ import cors from "cors"
 import { Server } from "colyseus"
 import { monitor } from "@colyseus/monitor";
 import { DefaultRoom } from "./rooms/DefaultRoom";
+import { GameRoom } from "./rooms/GameRoom";
 import { WebSocketTransport } from "@colyseus/ws-transport";
 const port = 2567
 const app = express();
@@ -31,6 +32,7 @@ const gameServer = new Server({
     })
 });
 gameServer.define("DefaultRoom", DefaultRoom);
+gameServer.define("GameRoom", GameRoom);
 app.use("/colyseus", monitor());
 gameServer.listen(port)
 console.log(`[GameServer] Listening on Port: ${port}`)

@@ -9,6 +9,7 @@ export default class GameScene extends Phaser.Scene {
         super("GameScene");
     }
     create(data: { server: Server }) {
+        console.log("GameScene::create: game scene created");
         const {server} = data;
         server.join();
     }

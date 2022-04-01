@@ -12,8 +12,8 @@ export default class Server {
         console.log("client id", this.client);
     }
     async join() {
-        const room = await this.client.joinOrCreate("DefaultRoom");
-        console.log("room id", room.id);
+        const room = await this.client.joinOrCreate("GameRoom");
+        console.log("Server::join: room", room);
         // this.input.keyboard.on("keydown", (evnt: KeyboardEvent) => {
         //     console.log("keyboard:", evnt);
         //     this.room.send("keydown", evnt.key);

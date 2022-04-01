@@ -1,7 +1,7 @@
 /**
  * init scene for
  *      handle logic between scenes
- *      inject services into scenes
+ *      inject network services into scenes
  */
 import Phaser from "phaser";
 import Server from "../services/Server";
@@ -15,9 +15,9 @@ export default class BootstrapScene extends Phaser.Scene {
     init() {
     }
     create() {
-        console.log("BootstrapScene::create");
+        console.log("BootstrapScene::create: bootstrap scene created");
         this.scene.launch("GameScene", {
-            server: this.server,
+            server: this.server,  // pass the server to GameScene
         });
     }
 }
