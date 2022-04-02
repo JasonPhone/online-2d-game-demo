@@ -2,14 +2,18 @@
  * handle commuication between server and client
  * from client-side, using colyseus.js
  */
-import { Client } from "colyseus.js";
+import { Client, Room } from "colyseus.js";
 // this script works at front-end so we can use phaser
 import Phaser from "phaser";
-import { GameState } from "~/customtypes/types";
+import { GameState} from "../../customtypes/GameState";
+import { Message } from "../../customtypes/GameMessage";
+
 
 export default class Server {
     private client: Client;
+    private room!: Room<GameState>;
     private events: Phaser.Events.EventEmitter;
+
     constructor() {
         console.log("connect to server");
         this.client = new Client("ws://localhost:2567");
@@ -18,20 +22,28 @@ export default class Server {
     }
     async join() {
         // use type parameter to better specify the room
-        const room = await this.client.joinOrCreate<GameState>("GameRoom");
-        console.log("Server::join: room", room);
+        this.room = await this.client.joinOrCreate<GameState>("GameRoom");
+        console.log("Server::join: room", this.room);
         // called at first state, a one-time listener 
-        room.onStateChange.once(state => {
+        this.room.onStateChange.once(state => {
             console.log("Server::join: first state", state);
             // calls the listener(s) registered for the event "once-state-changed"
             this.events.emit("once-state-changed", state);
         })
         // called at following state update
-        room.onStateChange(state => {
+        this.room.onStateChange(state => {
             console.log("Server::join: update state", state);
             // calls the listener(s) registered for the event "follow-state-updated"
             this.events.emit("follow-state-updated", state);
         })
+    }
+    takeTurn(idx: number) {
+        if (!this.room) {
+            return;
+        }
+        // send the message
+        console.log("Server::takeTurn: player take turn on cell", idx);
+        this.room.send(Message.playerSelection, {index: idx});
     }
     onceStateChanged(callback: (state: GameState) => void, context?: any) {
         // add a one-time listener to event

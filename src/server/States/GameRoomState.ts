@@ -2,7 +2,7 @@
  * schema
  */
 import {Schema, type, ArraySchema} from "@colyseus/schema";
-import { GameState } from "~/customtypes/types";
+import { GameState } from "../../customtypes/GameState";
 export class GameRoomState extends Schema implements GameState {
     @type("number") activePlayer: number = 0;
     @type(["number"]) board: ArraySchema<number>;
