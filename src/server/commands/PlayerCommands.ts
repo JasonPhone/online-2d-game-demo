@@ -16,5 +16,6 @@ export default class PlayerCommand extends Command<GameRoom, { id: string }> {
         const cellVal =  clientIdx === 0 ? Cell.X : Cell.O;
         this.room.state.board[index] = cellVal;
         console.log("PlayerCommand::execute: cell", index, "set to", cellVal, "by client", client.id);
+        return;
     }
 }

@@ -50,7 +50,13 @@ export default class Server {
         this.room.send(Message.playerSelection, {index: idx});
     }
     onceStateChanged(callback: (state: GameState) => void, context?: any) {
-        // add a one-time listener to event
+        // add a one-time listener to event, for Phaser
         this.events.once("once-state-changed", callback, context);
+        console.log("Server::onceStateChanged: event emitted");
+    }
+    followStateUpdated(callback: (state: GameState) => void, context?: any) {
+        // add a one-time listener to event, for Phaser
+        this.events.on("follow-state-updated", callback, context);
+        console.log("Server::followStateUpdated: event emitted");
     }
 }
