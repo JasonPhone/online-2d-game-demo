@@ -28,6 +28,6 @@ export class GameRoom extends Room<GameRoomState> {
         console.log(`GameRoom::onJoin: ${client.id} left`);
     }
     onDispose() {
-        console.log("GameRoom::onDispose: disposeed");
+        console.log("GameRoom::onDispose: disposed");
     }
 }

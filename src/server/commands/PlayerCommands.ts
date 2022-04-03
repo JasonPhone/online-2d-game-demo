@@ -6,7 +6,7 @@ type Payload = {
     client: Client
     index: number
 }
-export default class PlayerCommand extends Command<GameRoom, { id: string }> {
+export default class PlayerCommand extends Command<GameRoom, Payload> {
     execute(payload: Payload) {
         const {client, index} = payload;
         const clientIdx = this.room.clients.findIndex(c => c.id === client.id);
