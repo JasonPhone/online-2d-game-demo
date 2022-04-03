@@ -58,6 +58,7 @@ export default class GameScene extends Phaser.Scene {
         for (let i = 0; i < state.board.length; i++) {
             const cellRec = this.board[i];
             if (cellRec.value === Cell.Empty && cellRec.value !== state.board[i]) {
+                // some local logic
                 if (state.board[i] == Cell.X)
                     this.add.star(cellRec.backg.x, cellRec.backg.y, 4, 4, 50, 0xFF0000).setAngle(45);
                 else if (state.board[i] == Cell.O) {
