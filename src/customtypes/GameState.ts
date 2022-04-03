@@ -11,6 +11,11 @@
  * @member activePlayer index of the active player
  */
 export interface GameState {
-    board: number[];
+    board: Cell[];
     activePlayer: number;
+}
+export enum Cell {
+    Empty,
+    X,
+    O
 }

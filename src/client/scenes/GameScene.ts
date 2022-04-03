@@ -19,7 +19,6 @@ export default class GameScene extends Phaser.Scene {
         }
         await this.server.join(); // continue the flow after the sever.join() done
         this.server.onceStateChanged(this.createBoard, this);
-
     }
     private createBoard(state: GameState) {
         const cellLen = 128, spacing = 5;

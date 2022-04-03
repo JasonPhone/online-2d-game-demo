@@ -17,6 +17,7 @@ export default class Server {
     constructor() {
         console.log("connect to server");
         this.client = new Client("ws://localhost:2567");
+        
         this.events = new Phaser.Events.EventEmitter();
         console.log("client id", this.client);
     }
@@ -24,18 +25,21 @@ export default class Server {
         // use type parameter to better specify the room
         this.room = await this.client.joinOrCreate<GameState>("GameRoom");
         console.log("Server::join: room", this.room);
-        // called at first state, a one-time listener 
+        // called at first state, a one-time listener
+        this.room.onMessage("*", (type, message) => {
+            console.log("Server::join: received message", message);
+        });
         this.room.onStateChange.once(state => {
             console.log("Server::join: first state", state);
             // calls the listener(s) registered for the event "once-state-changed"
             this.events.emit("once-state-changed", state);
-        })
+        });
         // called at following state update
         this.room.onStateChange(state => {
             console.log("Server::join: update state", state);
             // calls the listener(s) registered for the event "follow-state-updated"
             this.events.emit("follow-state-updated", state);
-        })
+        });
     }
     takeTurn(idx: number) {
         if (!this.room) {

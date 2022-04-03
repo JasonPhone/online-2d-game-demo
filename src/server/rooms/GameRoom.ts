@@ -1,33 +1,31 @@
-import { Room } from "colyseus";
+import { Client, Room } from "colyseus";
+import { Message } from "../../customtypes/GameMessage";
 // import { Client } from "colyseus.js";
 import { GameRoomState } from "../states/GameRoomState";
+import { Dispatcher } from "@colyseus/command";
+import PlayerCommand from "../commands/PlayerCommands";
 
 export class GameRoom extends Room<GameRoomState> {
     maxClients: number = 2;
+    private dispacher: Dispatcher<GameRoom> = new Dispatcher(this);
     onCreate() {
         // setup schema
         this.setState(new GameRoomState());
-        this.onMessage("*", (client, message) => {
-            console.log("GameRoom:: message from", client.sessionId, message);
-        });
-        this.onMessage("message", (client, message) => {
-            console.log("GameRoom:: message from", client.sessionId, message);
-            this.broadcast("message", `(${client.sessionId}) ${message}`);
-        });
-        this.onMessage("keydown", (client, message) => {
-            console.log("GameRoom:: keydown from", client.sessionId, message);
-            this.broadcast("keydown", message, {
-                except: client,
-            });
+        this.onMessage(Message.playerSelection, (client, message: { index: number }) => {
+            // console.log("GameRoom:: player selection from", client.id, message);
+            console.log("GameRoom:: player", client.id, "takes turn", message);
+            // capsule the logic
+            this.dispacher.dispatch(new PlayerCommand(), {
+                client,
+                index: message.index
+            })
         });
     }
     onJoin(client) {
-        // this.broadcast("message", `${client.sessionId} joined`);
-        console.log("GameRoom::onJoin:", client.sessionId, "joined");
+        console.log(`GameRoom::onJoin: ${client.id} joined`);
     }
     onLeave(client) {
-        // this.broadcast("message", `${client.sessionId} leaved`);
-        console.log("GameRoom::onJoin:", client.sessionId, "left");
+        console.log(`GameRoom::onJoin: ${client.id} left`);
     }
     onDispose() {
         console.log("GameRoom::onDispose: disposeed");
