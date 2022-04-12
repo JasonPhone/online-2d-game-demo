@@ -3,7 +3,7 @@
  */
 import Phaser, { Math } from "phaser";
 import Server from "client/services/Server";
-import { Cell, GameState } from "customtypes/GameState";
+import { Cell, GameState } from "../../customtypes/GameState";
 
 class CellRecord {
     backg: Phaser.GameObjects.Rectangle;
