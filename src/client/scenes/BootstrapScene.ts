@@ -4,7 +4,7 @@
  *      inject network services into scenes
  */
 import Phaser from "phaser";
-import Server from "../services/Server";
+import Server from "client/services/Server";
 
 export default class BootstrapScene extends Phaser.Scene {
     private server: Server;

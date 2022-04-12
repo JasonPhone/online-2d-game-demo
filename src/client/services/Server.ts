@@ -5,8 +5,8 @@
 import { Client, Room } from "colyseus.js";
 // this script works at front-end so we can use phaser
 import Phaser from "phaser";
-import { GameState } from "../../customtypes/GameState";
-import { Message } from "../../customtypes/GameMessage";
+import { GameState } from "customtypes/GameState";
+import { Message } from "customtypes/GameMessage";
 
 
 export default class Server {

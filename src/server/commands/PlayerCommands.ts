@@ -1,7 +1,7 @@
 import { Command } from "@colyseus/command"
 import { Client, Room } from "colyseus"
-import { Cell } from "../../customtypes/GameState"
-import { GameRoom } from "../rooms/GameRoom"
+import { Cell } from "customtypes/GameState"
+import { GameRoom } from "server/rooms/GameRoom"
 type Payload = {
     client: Client
     index: number

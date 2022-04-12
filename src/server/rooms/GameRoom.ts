@@ -1,9 +1,9 @@
 import { Client, Room } from "colyseus";
-import { Message } from "../../customtypes/GameMessage";
+import { Message } from "customtypes/GameMessage";
 // import { Client } from "colyseus.js";
-import { GameRoomState } from "../states/GameRoomState";
+import { GameRoomState } from "server/states/GameRoomState";
 import { Dispatcher } from "@colyseus/command";
-import PlayerCommand from "../commands/PlayerCommands";
+import PlayerCommand from "server/commands/PlayerCommands";
 
 export class GameRoom extends Room<GameRoomState> {
     maxClients: number = 2;
