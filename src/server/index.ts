@@ -18,8 +18,10 @@ import express from "express";
 import cors from "cors"
 import { Server } from "colyseus"
 import { monitor } from "@colyseus/monitor";
-import { DefaultRoom } from "server/rooms/DefaultRoom";
-import { GameRoom } from "server/rooms/GameRoom";
+// import { DefaultRoom } from "server/rooms/DefaultRoom";
+// import { GameRoom } from "server/rooms/GameRoom";
+import { DefaultRoom } from "./rooms/DefaultRoom";
+import { GameRoom } from "./rooms/GameRoom";
 import { WebSocketTransport } from "@colyseus/ws-transport";
 const port = 2567
 const app = express();
