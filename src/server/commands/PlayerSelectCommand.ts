@@ -2,7 +2,6 @@ import { Command } from "@colyseus/command"
 import { Client, Room } from "colyseus"
 import { Cell } from "../../customtypes/GameState"
 import { GameRoom } from "../rooms/GameRoom"
-import NextTurnCommand from "./NextTurnCommand"
 type Payload = {
     client: Client
     index: number
@@ -17,6 +16,6 @@ export default class PlayerSelectCommand extends Command<GameRoom, Payload> {
         const cellVal = clientIdx === 0 ? Cell.X : Cell.O;
         this.room.state.board[index] = cellVal;
         console.log("PlayerSelectCommand::execute: cell", index, "set to", cellVal, "by client", client.id);
-        return new NextTurnCommand();
+        // return new CheckWinCommand();
     }
 }

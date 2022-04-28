@@ -1,10 +1,10 @@
 import { Client, Room } from "colyseus";
 import { Message } from "../../customtypes/GameMessage";
-// import { Client } from "colyseus.js";
 import { GameRoomState } from "../states/GameRoomState";
 import { Dispatcher } from "@colyseus/command";
-import PlayerSelectCommand from "../commands/PlayerSelectCommands";
-import NextTurnCommand from "../commands/NextTurnCommand";
+import PlayerSelectCommand from "../commands/PlayerSelectCommand";
+import CheckWinCommand from "../commands/CheckWinCommand"
+import NextTurnCommand from "../commands/NextTurnCommand"
 
 export class GameRoom extends Room<GameRoomState> {
     maxClients: number = 2;
@@ -17,10 +17,12 @@ export class GameRoom extends Room<GameRoomState> {
             console.log("GameRoom:: player", client.id, "takes turn", message);
             // capsule the logic
             this.dispacher.dispatch(new PlayerSelectCommand(), {
-                client,
+                client: client,
                 index: message.index
             });
-            // this.dispacher.dispatch(new NextTurnCommand(), {});
+            this.dispacher.dispatch(new CheckWinCommand(), {});
+            if (this.state.winPlayer == -2)
+                this.dispacher.dispatch(new NextTurnCommand(), {});
         });
     }
     onJoin(client: Client) {

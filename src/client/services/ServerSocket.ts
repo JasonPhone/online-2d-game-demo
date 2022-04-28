@@ -9,7 +9,7 @@ import { GameState } from "customtypes/GameState";
 import { Message } from "../../customtypes/GameMessage";
 
 
-export default class Server {
+export default class ServerSocket {
     private client: Client;
     private room!: Room<GameState>;
     private events: Phaser.Events.EventEmitter;

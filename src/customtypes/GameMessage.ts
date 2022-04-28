@@ -11,4 +11,8 @@
 export enum Message {
     playerSelection,
     playerIndex,
+    boardCont,
+    boardAWin,
+    boardBWin,
+    boardDraw,
 }

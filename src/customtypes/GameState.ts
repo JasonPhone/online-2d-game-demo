@@ -13,6 +13,7 @@
 export interface GameState {
     board: Cell[];
     activePlayer: number;
+    winPlayer: number | undefined;
 }
 export enum Cell {
     Empty,

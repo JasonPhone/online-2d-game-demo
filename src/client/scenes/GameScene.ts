@@ -2,7 +2,7 @@
  * game scene
  */
 import Phaser, { Math } from "phaser";
-import Server from "client/services/Server";
+import ServerSocket from "~/client/services/ServerSocket";
 import { Cell, GameState } from "../../customtypes/GameState";
 
 class CellRecord {
@@ -15,13 +15,13 @@ class CellRecord {
 
 }
 export default class GameScene extends Phaser.Scene {
-    private server!: Server;
+    private server!: ServerSocket;
     private board: CellRecord[] = [];
     constructor() {
         super("GameScene");
         this.board.length = 0;
     }
-    async create(data: { server: Server }) {
+    async create(data: { server: ServerSocket }) {
         console.log("GameScene::create: game scene created");
         const { server } = data;
         this.server = server;
