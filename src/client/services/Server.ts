@@ -13,6 +13,7 @@ export default class Server {
     private client: Client;
     private room!: Room<GameState>;
     private events: Phaser.Events.EventEmitter;
+    private playerIdx = -1;
 
     constructor() {
         console.log("connect to server");
@@ -21,13 +22,17 @@ export default class Server {
         this.events = new Phaser.Events.EventEmitter();
         console.log("client id", this.client);
     }
+    get playerIndex() {
+        return this.playerIdx;
+    }
     async join() {
         // use type parameter to better specify the room
         this.room = await this.client.joinOrCreate<GameState>("GameRoom");
         console.log("Server::join: room", this.room);
-        // this.room.onMessage("*", (type, message) => {
-        //     console.log("Server::join: received message", message);
-        // });
+        this.room.onMessage(Message.playerIndex, (message: {playerIndex: number}) => {
+            console.log("Server::join: got index", message.playerIndex);
+            this.playerIdx = message.playerIndex;
+        });
         this.room.onStateChange.once(state => {
             // called at first state, a one-time listener
             console.log("Server::join: first state", state);
@@ -43,6 +48,10 @@ export default class Server {
     }
     takeTurn(idx: number) {
         if (!this.room) {
+            return;
+        }
+        if (this.playerIndex != this.room.state.activePlayer) {
+            console.log("Server::takeTurn: player inactive", this.playerIndex, this.room.state.activePlayer);
             return;
         }
         // send the message

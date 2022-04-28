@@ -68,5 +68,10 @@ export default class GameScene extends Phaser.Scene {
                 cellRec.value = state.board[i];
             }
         }
+        this.updateTurn(state);
+    }
+    private updateTurn(state: GameState) {
+        console.log("GameScene::updateTurn: activePlayer: ", state.activePlayer);
+
     }
 }
