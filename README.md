@@ -63,5 +63,23 @@ Update the index of active player.
 
 ## Client side
 
+### `index.html`
 
+The main page.
+
+### `main.ts`
+
+The main script. Configure the overall Phaser3 option.
+
+### `ServerSocket.ts`
+
+For communicating with server.
+
+### `BoorstrapScene.ts`
+
+Initial scene.
+
+### `GameScene.ts`
+
+Hold the game states and logic.
 
