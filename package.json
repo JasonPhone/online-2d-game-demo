@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A typescript template project for Phaser 3 using Parceljs",
   "scripts": {
-    "start-client": "parcel src/client/index.html -p 10001",
+    "start-client": "webpack --config webpack.config.js",
     "start-server": "ts-node-dev --project tsconfig.server.json --respawn --transpile-only src/server/index.ts",
     "build": "parcel build src/client/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,12 +25,13 @@
     "copyfiles": "^2.4.1",
     "eslint": "^6.8.0",
     "minimist": "^1.2.5",
-    "parcel": "^2.4.1",
     "rimraf": "^2.7.1",
     "ts-node": "^8.1.0",
     "ts-node-dev": "^1.0.0-pre.63",
     "typescript": "^3.8.3",
-    "uwebsockets-express": "^1.1.14"
+    "uwebsockets-express": "^1.1.14",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
   },
   "dependencies": {
     "@colyseus/arena": "^0.14.24",
@@ -44,12 +45,5 @@
     "phaser": "^3.55.2",
     "serve-index": "^1.8.0",
     "superagent": "^3.8.1"
-  },
-  "parcelCleanPaths": [
-    "dist"
-  ],
-  "staticFiles": {
-    "staticPath": "public",
-    "watcherGlob": "**"
   }
 }
